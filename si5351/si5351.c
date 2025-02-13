@@ -1,9 +1,9 @@
 // vim: set ai et ts=4 sw=4:
 
 // change for your MCU
-#include "stm32f1xx_hal.h"
-
+#include "stm32g4xx_hal.h"
 #include <si5351.h>
+
 #define SI5351_ADDRESS 0x60
 #define I2C_HANDLE hi2c1
 extern I2C_HandleTypeDef I2C_HANDLE;
@@ -248,7 +248,7 @@ void si5351_Calc(int32_t Fclk, si5351PLLConfig_t* pll_conf, si5351OutputConfig_t
     // For any Fclk in [500K, 160MHz] this algorithm finds a solution
     // such as abs(Ffound - Fclk) <= 6 Hz
 
-    const int32_t Fxtal = 25000000;
+  
     int32_t a, b, c, x, y, z, t;
 
     if(Fclk < 81000000) {
@@ -294,7 +294,7 @@ void si5351_Calc(int32_t Fclk, si5351PLLConfig_t* pll_conf, si5351OutputConfig_t
 // use the same PLL to make it work. Fclk can be from 1.4 MHz to 100 MHz. The actual frequency will
 // differ less than 4 Hz from given Fclk, assuming `correction` is right.
 void si5351_CalcIQ(int32_t Fclk, si5351PLLConfig_t* pll_conf, si5351OutputConfig_t* out_conf) {
-    const int32_t Fxtal = 25000000;
+    
     int32_t Fpll;
 
     if(Fclk < 1400000) Fclk = 1400000;
